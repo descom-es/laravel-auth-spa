@@ -36,12 +36,13 @@ jobs:
       uses: actions/cache@v2
       with:
         path: vendor
+        id: cache-descom-laravel-auth
         key: ${{ runner.os }}-php-${{ matrix.php-versions }}-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
           ${{ runner.os }}-php-${{ matrix.php-versions }}
 
     - name: Install dependencies
-      if: steps.composer-cache.outputs.cache-hit != 'true'
+      if: steps.cache-descom-laravel-auth.outputs.cache-hit != 'true'
       run: |
         composer install
         composer dump
