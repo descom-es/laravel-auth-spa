@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['web']], function () {
     Route::post('login', LoginController::class)->name('login');
-    // Route::post('logout', LogoutController::class)->name('logout');
+    Route::post('logout', LogoutController::class)->name('logout');
     // Route::post('/password/forget', ResetLinkController::class)->name('password.forget');
     // Route::post('/password/reset', ResetController::class)->name('password.reset');
 });
