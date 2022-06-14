@@ -23,5 +23,7 @@ class AuthSpaServiceProvider extends ServiceProvider
                 Install::class,
             ]);
         }
+
+        $this->loadRoutesFrom(__DIR__.'/../routes/routes.php');
     }
 }
