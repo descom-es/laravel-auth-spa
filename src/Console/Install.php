@@ -1,23 +1,23 @@
 <?php
 
-namespace Descom\Skeleton\Console;
+namespace Descom\AuthSpa\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 
 class Install extends Command
 {
-    protected $signature = 'skeleton:install';
+    protected $signature = 'auth_spa:install';
 
-    protected $description = 'Install package Skeleton';
+    protected $description = 'Install package AuthSpa';
 
     public function handle()
     {
-        $this->info('Installing package Skeleton...');
+        $this->info('Installing package AuthSpa...');
 
         $this->info('Publishing configuration...');
 
-        if (! $this->configExists('skeleton.php')) {
+        if (! $this->configExists('auth_spa.php')) {
             $this->publishConfiguration();
         } else {
             if ($this->shouldOverwriteConfig()) {
@@ -27,7 +27,7 @@ class Install extends Command
             }
         }
 
-        $this->info('Installed package Skeleton');
+        $this->info('Installed package AuthSpa');
     }
 
     private function configExists($fileName)
@@ -48,7 +48,7 @@ class Install extends Command
         $this->info('Overwriting configuration file...');
 
         $params = [
-            '--provider' => "Descom\Skeleton\SkeletonServiceProvider",
+            '--provider' => "Descom\AuthSpa\AuthSpaServiceProvider",
             '--tag' => 'config',
         ];
 
