@@ -8,12 +8,12 @@ use Illuminate\Support\Facades\DB;
 
 class LoginTest extends TestCase
 {
-    public function test__fail_login_if_dont_send_email()
+    public function testFailLoginIfDontSendEmail()
     {
         $this->postJson(route('login'))->assertStatus(422);
     }
 
-    public function test_login()
+    public function testLogin()
     {
         DB::table('users')->insert([
             'name' => 'Test',
@@ -29,7 +29,7 @@ class LoginTest extends TestCase
         $this->assertAuthenticated();
     }
 
-    public function test_login_failed_if_bad_password()
+    public function testLoginFailedIfBadPassword()
     {
         DB::table('users')->insert([
             'name' => 'Test',

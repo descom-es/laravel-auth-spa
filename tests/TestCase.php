@@ -4,9 +4,9 @@ namespace Descom\AuthSpa\Tests;
 
 use Descom\AuthSpa\AuthSpaServiceProvider;
 use Illuminate\Database\Schema\Blueprint;
-use Laravel\Sanctum\SanctumServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Schema;
+use Laravel\Sanctum\SanctumServiceProvider;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
@@ -40,9 +40,9 @@ class TestCase extends \Orchestra\Testbench\TestCase
     {
         $app['config']->set('database.default', 'testbench');
         $app['config']->set('database.connections.testbench', [
-            'driver'   => 'sqlite',
+            'driver' => 'sqlite',
             'database' => ':memory:',
-            'prefix'   => '',
+            'prefix' => '',
         ]);
     }
 }
