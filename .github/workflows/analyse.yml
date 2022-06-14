@@ -36,9 +36,9 @@ jobs:
     - uses: actions/cache@v3
       with:
         path: ${{ steps.composer-cache.outputs.dir }}
-        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+        key: ${{ runner.os }}-composer-${{ matrix.php-versions }}-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
-          ${{ runner.os }}-composer-
+          ${{ runner.os }}-composer-8.1
 
     - name: Install dependencies
       if: steps.cache-descom-laravel-auth.outputs.cache-hit != 'true'

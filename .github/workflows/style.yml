@@ -21,14 +21,17 @@ jobs:
         extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, exif
         coverage: xdebug
 
-    - name: Cache Composer packages
-      id: cache-descom-laravel-auth
-      uses: actions/cache@v3
+    - name: Get Composer Cache Directory
+      id: composer-cache
+      run: |
+        echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+    - uses: actions/cache@v3
       with:
-        path: vendor
-        key: ${{ runner.os }}-php-8.1-${{ hashFiles('**/composer.lock') }}
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: ${{ runner.os }}-composer-${{ matrix.php-versions }}-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
-          ${{ runner.os }}-php-8.1
+          ${{ runner.os }}-composer-8.1
 
     - name: Install dependencies
       if: steps.cache-descom-laravel-auth.outputs.cache-hit != 'true'
