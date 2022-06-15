@@ -4,9 +4,9 @@
 [![analyse](https://github.com/descom-es/laravel-auth-spa/actions/workflows/analyse.yml/badge.svg)](https://github.com/descom-es/laravel-auth-spa/actions/workflows/analyse.yml)
 [![style](https://github.com/descom-es/laravel-auth-spa/actions/workflows/style.yml/badge.svg)](https://github.com/descom-es/laravel-auth-spa/actions/workflows/style.yml)
 
-This package is a agnostic authentication backend implementation for Laravel. Registers the
-routes and controllers needed to implement all of Laravel'svauthentication features, including
-login, password reset and more.
+This package is an authentication backend implementation for Laravel. Registers the routes
+and controllers required to implement all Laravel authentication features from a Frontend
+SPA or SSR, including login, password reset, and more.
 
 ## Install
 
@@ -15,6 +15,45 @@ composer require descom/laravel-auth-spa
 ```
 
 ## Configure
+
+### Laravel Sanctum
+
+Run:
+
+```sh
+php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
+php artisan migrate
+````
+
+Add Sanctum's middleware to your api middleware group within your application's `app/Http/Kernel.php` file:
+
+```php
+'api' => [
+    \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+    'throttle:api',
+    \Illuminate\Routing\Middleware\SubstituteBindings::class,
+],
+```
+
+Setting the `supports_credentials` option within your application's `config/cors.php` configuration file to `true`.
+
+In production define this environment variables:
+
+Local:
+
+```env
+SANCTUM_STATEFUL_DOMAINS=localhost:3000
+SESSION_DOMAIN=localhost
+```
+
+Production for domain 'www.app.tld':
+
+```env
+SANCTUM_STATEFUL_DOMAINS=www.app.tld
+SESSION_DOMAIN=.app.tld
+```
+
+### Package
 
 ```sh
 php artisan vendor:publish --provider="Descom\AuthSpa\AuthSpaServiceProvider" --tag="config"
@@ -33,6 +72,14 @@ You can define your frontend in config file `config/authspa.php`
 ```
 
 ## Usage
+
+## API Http Requests
+
+- [POST](/login)
+- [POST](/logout)
+- [POST](/password/reset_link)
+- [POST](/password/reset)
+- [GET](/api/user)
 
 ### Nuxt.js
 
@@ -61,3 +108,8 @@ And configure file `nuxt.config.js`:
   }
 }
 ```
+
+## More info
+
+- [Laravel Sanctum](https://laravel.com/docs/sanctum)
+- [Nuxt Auth](https://auth.nuxtjs.org/providers/laravel-sanctum)
