@@ -5,6 +5,7 @@ use Descom\AuthSpa\Http\Controllers\LogoutController;
 use Descom\AuthSpa\Http\Controllers\Passwords\ResetController;
 use Descom\AuthSpa\Http\Controllers\Passwords\ResetLinkController;
 use Descom\AuthSpa\Http\Controllers\UserController;
+use Descom\AuthSpa\Http\Controllers\UserInfoController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -16,5 +17,6 @@ Route::group(['middleware' => ['web']], function () {
 });
 
 Route::group(['middleware' => ['api', 'auth:sanctum']], function () {
-    Route::get('user', [UserController::class, 'show'])->name('api.user');
+    Route::get('user', config('auth_spa.controllers.user_info',  UserInfoController::class))
+        ->name('api.user');
 });
