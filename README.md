@@ -75,11 +75,11 @@ You can define your frontend in config file `config/authspa.php`
 
 ## API Http Requests
 
-- [POST](/login)
-- [POST](/logout)
-- [POST](/password/reset_link)
-- [POST](/password/reset)
-- [GET](/api/user)
+- [POST] `/login`
+- [POST] `/logout`
+- [POST] `/password/reset_link`
+- [POST] `/password/reset`
+- [GET] `/api/user`
 
 ### Nuxt.js
 
