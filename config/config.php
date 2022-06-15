@@ -8,7 +8,13 @@ return [
         'reset_password_url' => env('FRONTEND_RESET_PASSWORD_URL', '/login/reset'),
     ],
 
-    // 'controllers' => [
-    //     'user_info' => \Descom\AuthSpa\Http\Controllers\UserInfoController::class,
+    // 'http' => [
+    //     'profile_info' => [
+    //         'controller' => \Descom\AuthSpa\Http\Controllers\ProfileInfoController::class,
+
+    //         'middleware' => ['api', 'auth:sanctum'],
+
+    //         'path' => 'user',
+    //     ],
     // ],
 ];

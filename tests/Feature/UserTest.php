@@ -9,7 +9,7 @@ class UserTest extends TestCase
 {
     public function test_fail_get_user_if_not_autenticated()
     {
-        $this->getJson(route('api.user'))->assertStatus(401);
+        $this->getJson(route('profile.info'))->assertStatus(401);
     }
 
     public function test_get_user()
@@ -20,7 +20,7 @@ class UserTest extends TestCase
             'password' => bcrypt('sample'),
         ]);
 
-        $this->actingAs($user)->getJson(route('api.user'))
+        $this->actingAs($user)->getJson(route('profile.info'))
             ->assertStatus(200);
     }
 }

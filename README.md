@@ -125,12 +125,20 @@ And configure file `nuxt.config.js`:
 You can define your own controller to get User Info, edit the file `config/auth-spa.php`
 
 ```php
-    'controllers' => [
-        'user_info' => \Descom\AuthSpa\Http\Controllers\UserInfoController::class,
+
+    'http' => [
+        'profile_info' => [
+            'controller' => \Descom\AuthSpa\Http\Controllers\ProfileInfoController::class,
+
+            'middleware' => ['api', 'auth:sanctum'],
+
+            'path' => 'user',
+        ],
     ],
+
 ```
 
-And define your own controller
+And define your own controller:
 
 ```php
 use Illuminate\Http\JsonResponse;

@@ -6,7 +6,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class UserInfoController extends Controller
+class ProfileInfoController extends Controller
 {
     public function __invoke(): JsonResponse
     {
