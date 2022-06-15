@@ -13,14 +13,14 @@ use Illuminate\Support\Facades\Password;
 
 class ResetPasswordTest extends TestCase
 {
-    public function testPasswordForgetFailedIfEmailDontExists()
+    public function test_password_forget_failed_if_email_dont_exists()
     {
         $this->postJson(route('password.reset_link'), [
             'email' => 'example@example.com',
         ])->assertStatus(400);
     }
 
-    public function testPasswordForgetSendLink()
+    public function test_password_forget_send_link()
     {
         Notification::fake();
 
@@ -40,7 +40,7 @@ class ResetPasswordTest extends TestCase
         );
     }
 
-    public function testPasswordReset()
+    public function test_password_reset()
     {
         Event::fake();
 

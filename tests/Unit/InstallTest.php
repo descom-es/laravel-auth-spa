@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\File;
 class InstallTest extends TestCase
 {
     /** @test */
-    public function theInstallCommandCopiesTheConfiguration()
+    public function the_install_command_copies_the_configuration()
     {
         // make sure we're starting from a clean state
         if (File::exists(config_path('auth_spa.php'))) {
@@ -50,7 +50,7 @@ class InstallTest extends TestCase
     }
 
     /** @test */
-    public function whenAConfigFileIsPresentUsersCanChooseToDoOverwriteIt()
+    public function when_a_config_file_is_present_users_can_choose_to_do_overwrite_it()
     {
         // Given we have already have an existing config file
         File::put(config_path('auth_spa.php'), 'test contents');
