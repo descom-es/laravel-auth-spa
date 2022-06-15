@@ -3,6 +3,7 @@
 namespace Descom\AuthSpa\Tests;
 
 use Descom\AuthSpa\AuthSpaServiceProvider;
+use Descom\AuthSpa\Tests\Models\User;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Schema;
@@ -26,6 +27,12 @@ class TestCase extends \Orchestra\Testbench\TestCase
             $table->rememberToken();
             $table->timestamps();
         });
+
+        Schema::create('password_resets', function (Blueprint $table) {
+            $table->string('email')->index();
+            $table->string('token');
+            $table->timestamp('created_at')->nullable();
+        });
     }
 
     protected function getPackageProviders($app)
@@ -44,5 +51,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
             'database' => ':memory:',
             'prefix' => '',
         ]);
+
+        $app['config']->set('auth.providers.users.model', User::class);
     }
 }

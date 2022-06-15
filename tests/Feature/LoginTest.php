@@ -2,43 +2,44 @@
 
 namespace Descom\AuthSpa\Tests\Feature;
 
+use Descom\AuthSpa\Tests\Models\User;
 use Descom\AuthSpa\Tests\TestCase;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class LoginTest extends TestCase
 {
-    public function testFailLoginIfDontSendEmail()
+    public function test__fail_login_if_dont_send_email()
     {
         $this->postJson(route('login'))->assertStatus(422);
     }
 
-    public function testLogin()
+    public function test_login()
     {
-        DB::table('users')->insert([
+        $user = User::create([
             'name' => 'Test',
             'email' => 'sample@sample.es',
             'password' => bcrypt('sample'),
         ]);
 
         $this->postJson(route('login'), [
-            'email' => 'sample@sample.es',
+            'email' => $user->email,
             'password' => 'sample',
         ])->assertStatus(200);
 
         $this->assertAuthenticated();
     }
 
-    public function testLoginFailedIfBadPassword()
+    public function test_login_failed_if_bad_password()
     {
-        DB::table('users')->insert([
+        $user = User::create([
             'name' => 'Test',
             'email' => 'sample@sample.es',
             'password' => bcrypt('sample'),
         ]);
 
         $this->postJson(route('login'), [
-            'email' => 'sample@sample.es',
+            'email' => $user->email,
             'password' => 'sample0',
         ])->assertStatus(401);
 
