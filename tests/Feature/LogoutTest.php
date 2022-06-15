@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class LogoutTest extends TestCase
 {
-    public function testLogout()
+    public function test_logout()
     {
         $user = User::create([
             'name' => 'Test',
