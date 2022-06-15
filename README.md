@@ -16,7 +16,6 @@ SPA or SSR, including login, password reset, and more.
 - [Customize](#customize)
 - [More info](#more-info)
 
-
 ## Installation
 
 ```bash
@@ -44,7 +43,15 @@ Add Sanctum's middleware to your api middleware group within your application's 
 ],
 ```
 
-Setting the `supports_credentials` option within your application's `config/cors.php` configuration file to `true`.
+Configure cors, you need edit the file `config/cors.php` and change this lines:
+
+```php
+    'paths' => ['api/*', 'sanctum/csrf-cookie', 'login', 'logout', 'password/forget', 'password/reset'],
+
+    /// ...
+
+    'supports_credentials' => true,
+```
 
 In production define this environment variables:
 
