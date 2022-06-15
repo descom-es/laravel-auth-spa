@@ -2,7 +2,6 @@
 
 namespace Descom\AuthSpa;
 
-use Descom\AuthSpa\Console\Install;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\ServiceProvider;
 
@@ -19,10 +18,6 @@ class AuthSpaServiceProvider extends ServiceProvider
             $this->publishes([
               __DIR__.'/../config/config.php' => config_path('auth_spa.php'),
             ], 'config');
-
-            $this->commands([
-                Install::class,
-            ]);
         }
 
         $this->loadRoutesFrom(__DIR__.'/../routes/routes.php');
