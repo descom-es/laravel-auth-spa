@@ -21,3 +21,31 @@ php artisan vendor:publish --provider="Descom\AuthSpa\AuthSpaServiceProvider" --
 ```
 
 ## Usage
+
+### Nuxt.js
+
+Install Nuxt Auth:
+
+```sh
+yarn add --exact @nuxtjs/auth-next
+yarn add @nuxtjs/axios
+```
+
+And configure file `nuxt.config.js`:
+
+```js
+{
+  modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/auth-next'
+  ],
+  auth: {
+    strategies: {
+      laravelSanctum: {
+        provider: 'laravel/sanctum',
+        url: process.env.API_URL || 'http://localhost:8000',
+      },
+    },
+  }
+}
+```
