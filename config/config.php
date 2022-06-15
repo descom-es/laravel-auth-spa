@@ -14,7 +14,7 @@ return [
 
     //         'middleware' => ['api', 'auth:sanctum'],
 
-    //         'path' => 'user',
+    //         'path' => '/api/user',
     //     ],
     // ],
 ];

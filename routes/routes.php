@@ -25,7 +25,7 @@ Route::post('/password/reset', ResetController::class)
     ->name('password.reset');
 
 Route::get(
-    config('auth_spa.http.profile_info.path',  'user'),
+    config('auth_spa.http.profile_info.path',  'api/user'),
     config('auth_spa.http.profile_info.controller',  ProfileInfoController::class)
 )
     ->middleware(config('auth_spa.http.profile_info.middleware', ['api', 'auth:sanctum']))
