@@ -20,6 +20,18 @@ composer require descom/laravel-auth-spa
 php artisan vendor:publish --provider="Descom\AuthSpa\AuthSpaServiceProvider" --tag="config"
 ```
 
+You can define your frontend in config file `config/authspa.php`
+
+```php
+///
+    'frontend' => [
+        'url' => env('FRONTEND_URL', 'http://localhost:3000'),
+
+        'reset_password_url' => env('FRONTEND_RESET_PASSWORD_URL', '/login/reset'),
+    ],
+///
+```
+
 ## Usage
 
 ### Nuxt.js
