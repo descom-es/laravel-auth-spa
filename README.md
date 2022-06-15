@@ -161,7 +161,6 @@ class UserInfoController extends Controller
 }
 ```
 
-
 ## More info
 
 - [Laravel Sanctum](https://laravel.com/docs/sanctum)
