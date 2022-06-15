@@ -77,10 +77,6 @@ You can define your frontend in config file `config/authspa.php`
 
         'reset_password_url' => env('FRONTEND_RESET_PASSWORD_URL', '/login/reset'),
     ],
-
-    'controllers' => [
-        'user_info' => \Descom\AuthSpa\Http\Controllers\UserInfoController::class,
-    ],
 ///
 ```
 
