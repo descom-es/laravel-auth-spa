@@ -3,10 +3,9 @@
 namespace Descom\AuthSpa\Http\Controllers\Passwords;
 
 use Illuminate\Http\JsonResponse;
-use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Password;
-use Illuminate\Validation\Rule;
 
 class ResetLinkController extends Controller
 {

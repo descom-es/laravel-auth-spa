@@ -5,7 +5,6 @@ namespace Descom\AuthSpa\Tests\Feature;
 use Descom\AuthSpa\Tests\Models\User;
 use Descom\AuthSpa\Tests\TestCase;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class LogoutTest extends TestCase
 {

@@ -7,21 +7,20 @@ use Descom\AuthSpa\Tests\TestCase;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Password;
 
 class ResetPasswordTest extends TestCase
 {
-    public function test_password_forget_failed_if_email_dont_exists()
+    public function testPasswordForgetFailedIfEmailDontExists()
     {
         $this->postJson(route('password.reset_link'), [
             'email' => 'example@example.com',
         ])->assertStatus(400);
     }
 
-    public function test_password_forget_send_link()
+    public function testPasswordForgetSendLink()
     {
         Notification::fake();
 
@@ -41,7 +40,7 @@ class ResetPasswordTest extends TestCase
         );
     }
 
-    public function test_password_reset()
+    public function testPasswordReset()
     {
         Event::fake();
 
