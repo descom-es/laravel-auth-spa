@@ -36,6 +36,6 @@ return (new PhpCsFixer\Config())
             'keep_multiple_spaces_after_comma' => true,
         ],
         'single_trait_insert_per_statement' => true,
-        'php_unit_method_casing' => ['case' => 'camel_case'],
+        'php_unit_method_casing' => ['case' => 'snake_case'],
     ])
     ->setFinder($finder);
