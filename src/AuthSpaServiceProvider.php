@@ -3,6 +3,7 @@
 namespace Descom\AuthSpa;
 
 use Descom\AuthSpa\Console\Install;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\ServiceProvider;
 
 class AuthSpaServiceProvider extends ServiceProvider
@@ -25,5 +26,9 @@ class AuthSpaServiceProvider extends ServiceProvider
         }
 
         $this->loadRoutesFrom(__DIR__.'/../routes/routes.php');
+
+        ResetPassword::createUrlUsing(function ($user, string $token) {
+            return config('auth_spa.frontend.url').config('auth_spa.frontend.reset_password_url').'?token='.$token;
+        });
     }
 }
