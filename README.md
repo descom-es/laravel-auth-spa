@@ -8,7 +8,16 @@ This package is an authentication backend implementation for Laravel. Registers 
 and controllers required to implement all Laravel authentication features from a Frontend
 SPA or SSR, including login, password reset, and more.
 
-## Install
+- [Installation](#installation)
+- [Configure](#configure)
+  - [Laravel Sanctum](#laravel-sanctum)
+  - [Package](#package)
+- [Usage](#usage)
+- [Customize](#customize)
+- [More info](#more-info)
+
+
+## Installation
 
 ```bash
 composer require descom/laravel-auth-spa
@@ -112,6 +121,35 @@ And configure file `nuxt.config.js`:
   }
 }
 ```
+
+## Customize
+
+### Customize User Info
+
+You can define your own controller to get User Info, edit the file `config/auth-spa.php`
+
+```php
+    'controllers' => [
+        'user_info' => \Descom\AuthSpa\Http\Controllers\UserInfoController::class,
+    ],
+```
+
+And define your own controller
+
+```php
+use Illuminate\Http\JsonResponse;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
+
+class UserInfoController extends Controller
+{
+    public function __invoke(): JsonResponse
+    {
+        return response()->json(Auth::user()->load(['roles', 'clients']));
+    }
+}
+```
+
 
 ## More info
 
