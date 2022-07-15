@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 
-class ResetController extends Controller
+class ResetPasswordController extends Controller
 {
     public function __invoke(Request $request): JsonResponse
     {
