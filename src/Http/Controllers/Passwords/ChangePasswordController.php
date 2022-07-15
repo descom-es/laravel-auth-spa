@@ -2,13 +2,15 @@
 
 namespace Descom\AuthSpa\Http\Controllers\Passwords;
 
-use Illuminate\Auth\Events\PasswordReset;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
-use Illuminate\Support\Str;
+use Illuminate\Auth\Events\PasswordReset;
 
 class ChangePasswordController extends Controller
 {
@@ -23,14 +25,15 @@ class ChangePasswordController extends Controller
             return response()->json(['message' => __('auth.passwords.change_mismatch')], 400);
         }
 
-        if (!Hash::check($request->input('current_password'), auth()->user()->password)) {
+        $user = User::find(Auth::id());
+
+        if (!Hash::check($request->input('current_password'), $user->password)) {
             return response()->json(['message' => __('auth.passwords.change_mismatch')], 400);
         }
 
-        auth()->user()->update([
-            'password' => Hash::make($request->input('password')),
-        ]);
+        $user->password = Hash::make($request->input('password'));
+        $user->save();
 
-        return response()->json(['message' => 'culo'], 200);
+        return response()->json(['message' => 'Contraseña cambiada correctamente'], 200);
     }
 }
