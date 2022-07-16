@@ -24,16 +24,19 @@ class ChangePasswordController extends Controller
             return response()->json(['message' => __('auth.passwords.change_mismatch')], 400);
         }
 
+        $userLogged = Auth::user();
 
-
-        if (!Hash::check($request->input('current_password'), Auth::user()->getAuthPassword())) {
+        if (!Hash::check($request->input('current_password'), $userLogged->getAuthPassword())) {
             return response()->json(['message' => __('auth.passwords.change_mismatch')], 400);
         }
 
-        Password::reset([
-            'email' => Auth::user()->email,
-            'password' => $request->input('password'),
-        ]);
+        $userLogged->forceFill([
+            'password' => Hash::make($request->input('password')),
+        ])->setRememberToken(Str::random(60));
+
+        $userLogged->save();
+
+        event(new PasswordReset($userLogged));
 
         return response()->json(['message' => 'Contraseña cambiada correctamente'], 200);
     }
