@@ -2,13 +2,13 @@
 
 namespace Descom\AuthSpa\Http\Controllers\Users;
 
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Password;
 
 class UpdatePasswordController extends Controller
@@ -22,7 +22,7 @@ class UpdatePasswordController extends Controller
                 'confirmed',
                 'different:current_password',
                 Password::default(),
-            ]
+            ],
         ]);
 
         $this->resetPasswordforCurrentUser($request->input('password'));

@@ -2,15 +2,14 @@
 
 namespace Descom\AuthSpa\Tests\Feature;
 
-use Descom\AuthSpa\Tests\TestCase;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Descom\AuthSpa\Tests\Models\User;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Password;
+use Descom\AuthSpa\Tests\TestCase;
 use Illuminate\Auth\Events\PasswordReset;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\Auth\Notifications\ResetPassword;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Password;
 
 class ResetPasswordTest extends TestCase
 {

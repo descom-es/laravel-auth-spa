@@ -22,7 +22,7 @@ class ResetPasswordController extends Controller
                 'required',
                 'confirmed',
                 RulesPassword::default(),
-            ]
+            ],
         ]);
 
         $status = Password::reset(
