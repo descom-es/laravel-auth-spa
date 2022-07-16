@@ -9,15 +9,20 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rules\Password as RulesPassword;
 
-class ResetController extends Controller
+class ResetPasswordController extends Controller
 {
     public function __invoke(Request $request): JsonResponse
     {
         $request->validate([
             'token' => 'required',
             'email' => 'required|email',
-            'password' => 'required|min:8|confirmed',
+            'password' => [
+                'required',
+                'confirmed',
+                RulesPassword::default(),
+            ]
         ]);
 
         $status = Password::reset(

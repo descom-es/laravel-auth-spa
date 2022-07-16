@@ -13,7 +13,13 @@ SPA or SSR, including login, password reset, and more.
   - [Laravel Sanctum](#laravel-sanctum)
   - [Package](#package)
 - [Usage](#usage)
+  - [Login](#login)
+  - [Logout](#logout)
+  - [Get reset password link](#get-reset-password-link)
+  - [Reset password with link](#reset-password-with-link)
+  - [Update password for current user logged](#update-password-for-current-user-logged)
 - [Customize](#customize)
+  - [Defining Default Password Rules](#defining-default-password-rules)
 - [More info](#more-info)
 
 ## Installation
@@ -89,13 +95,64 @@ You can define your frontend in config file `config/authspa.php`
 
 ## Usage
 
-## API Http Requests
+### Login
 
-- [POST] `/login`
-- [POST] `/logout`
-- [POST] `/password/reset_link`
-- [POST] `/password/reset`
-- [GET] `/api/user`
+```http
+POST /login
+
+{
+    "email": " <email>",
+    "password": "<password>"
+}
+```
+
+### Logout
+
+```http
+POST /logout
+```
+
+### Get reset password link
+
+```http
+POST /password/forgot
+
+{
+    "email": " <email>"
+}
+```
+
+### Reset password with link
+
+```http
+POST /password/reset
+
+{
+    "token": "<token>",
+    "email": " <email>",
+    "password": "<password>",
+    "password_confirmation": "<password>"
+}
+```
+
+### Update password for current user logged
+
+```http
+PUT /api/user/password
+
+{
+    "current_password": "<current_password>",
+    "password": "<newpassword>",
+    "password_confirmation": "<newpassword>"
+}
+```
+
+### Get user info
+
+```http
+GET /api/user
+```
+
 
 ### Nuxt.js
 
@@ -127,37 +184,27 @@ And configure file `nuxt.config.js`:
 
 ## Customize
 
-### Customize User Info
+### Defining Default Password Rules
 
-You can define your own controller to get User Info, edit the file `config/auth-spa.php`
-
-```php
-
-    'http' => [
-        'profile_info' => [
-            'controller' => \Descom\AuthSpa\Http\Controllers\ProfileInfoController::class,
-
-            'middleware' => ['api', 'auth:sanctum'],
-
-            'path' => 'user',
-        ],
-    ],
-
-```
-
-And define your own controller:
+You may find it convenient to specify the default validation rules for passwords in a single location of your application. You can easily accomplish this using the `Password::defaults` method, which accepts a closure. The closure given to the defaults method should return the default configuration of the Password rule. Typically, the `defaults` rule should be called within the `boot` method of one of your application's service providers:
 
 ```php
-use Illuminate\Http\JsonResponse;
-use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rules\Password;
 
-class UserInfoController extends Controller
+/**
+ * Bootstrap any application services.
+ *
+ * @return void
+ */
+public function boot()
 {
-    public function __invoke(): JsonResponse
-    {
-        return response()->json(Auth::user()->load(['roles', 'clients']));
-    }
+    Password::defaults(function () {
+        $rule = Password::min(8);
+
+        return $this->app->isProduction()
+                    ? $rule->mixedCase()->uncompromised()
+                    : $rule;
+    });
 }
 ```
 
