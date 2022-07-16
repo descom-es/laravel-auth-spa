@@ -8,8 +8,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Validation\Rules\Password;
 
 class ChangePasswordController extends Controller
 {
@@ -17,7 +17,12 @@ class ChangePasswordController extends Controller
     {
         $request->validate([
             'current_password' => 'required|current_password',
-            'password' => 'required|min:8|confirmed|different:current_password',
+            'password' => [
+                'required',
+                'confirmed',
+                'different:current_password',
+                Password::default(),
+            ]
         ]);
 
         $this->resetPasswordforCurrentUser($request->input('password'));
