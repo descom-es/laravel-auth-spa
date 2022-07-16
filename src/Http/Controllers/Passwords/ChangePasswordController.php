@@ -17,23 +17,24 @@ class ChangePasswordController extends Controller
     {
         $request->validate([
             'current_password' => 'required|current_password',
-            'password' => 'required|min:8|confirmed',
+            'password' => 'required|min:8|confirmed|different:current_password',
         ]);
 
-        if ($request->input('current_password') === $request->input('password')) {
-            return response()->json(['message' => __('auth.passwords.change_mismatch')], 400);
-        }
+        $this->resetPasswordforCurrentUser($request->input('password'));
 
+        return response()->json(['message' => 'Contraseña cambiada correctamente'], 200);
+    }
+
+    private function resetPasswordforCurrentUser(string $password): void
+    {
         $userLogged = Auth::user();
 
         $userLogged->forceFill([
-            'password' => Hash::make($request->input('password')),
+            'password' => Hash::make($password),
         ])->setRememberToken(Str::random(60));
 
         $userLogged->save();
 
         event(new PasswordReset($userLogged));
-
-        return response()->json(['message' => 'Contraseña cambiada correctamente'], 200);
     }
 }

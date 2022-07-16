@@ -120,6 +120,6 @@ class ResetPasswordTest extends TestCase
             'current_password' => 'oldpassword',
             'password' => 'oldpassword',
             'password_confirmation' => 'oldpassword',
-        ])->assertStatus(400);
+        ])->assertStatus(422);
     }
 }
