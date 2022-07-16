@@ -86,4 +86,40 @@ class ResetPasswordTest extends TestCase
 
         $this->assertTrue(Hash::check('newpassword', $user->getAuthPassword()));
     }
+
+    public function test_password_change_fail_if_current_password_is_invalid()
+    {
+        Event::fake();
+
+        $user = User::create([
+            'name' => 'Test',
+            'email' => 'sample@sample.es',
+            'password' => bcrypt('oldpassword'),
+        ]);
+
+        $this->actingAs($user)->postJson(route('password.change'), [
+            'current_password' => 'otherpassword',
+            'password' => 'newpassword',
+            'password_confirmation' => 'newpassword',
+        ])->assertStatus(422);
+
+        $this->assertTrue(Hash::check('oldpassword', $user->getAuthPassword()));
+    }
+
+    public function test_password_change_fail_if_password_is_same_that_current()
+    {
+        Event::fake();
+
+        $user = User::create([
+            'name' => 'Test',
+            'email' => 'sample@sample.es',
+            'password' => bcrypt('oldpassword'),
+        ]);
+
+        $this->actingAs($user)->postJson(route('password.change'), [
+            'current_password' => 'oldpassword',
+            'password' => 'oldpassword',
+            'password_confirmation' => 'oldpassword',
+        ])->assertStatus(400);
+    }
 }
