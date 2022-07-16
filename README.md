@@ -132,7 +132,7 @@ POST /password/reset
 ### Reset password current user logged
 
 ```http
-POST /password/change
+PUT /api/user/password
 
 {
     "current_password": "<current_password>",

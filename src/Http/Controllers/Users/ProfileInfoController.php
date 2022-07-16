@@ -1,6 +1,6 @@
 <?php
 
-namespace Descom\AuthSpa\Http\Controllers;
+namespace Descom\AuthSpa\Http\Controllers\Users;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;

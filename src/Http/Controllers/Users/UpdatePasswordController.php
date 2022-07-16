@@ -1,6 +1,6 @@
 <?php
 
-namespace Descom\AuthSpa\Http\Controllers\Passwords;
+namespace Descom\AuthSpa\Http\Controllers\Users;
 
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Validation\Rules\Password;
 
-class ChangePasswordController extends Controller
+class UpdatePasswordController extends Controller
 {
     public function __invoke(Request $request): JsonResponse
     {
