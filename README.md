@@ -89,13 +89,64 @@ You can define your frontend in config file `config/authspa.php`
 
 ## Usage
 
-## API Http Requests
+### Login
 
-- [POST] `/login`
-- [POST] `/logout`
-- [POST] `/password/reset_link`
-- [POST] `/password/reset`
-- [GET] `/api/user`
+```http
+POST /login
+
+{
+    "email": " <email>",
+    "password": "<password>"
+}
+```
+
+### Logout
+
+```http
+POST /logout
+```
+
+### Get reset password link
+
+```http
+POST /password/forgot
+
+{
+    "email": " <email>"
+}
+```
+
+### Reset password with link
+
+```http
+POST /password/reset
+
+{
+    "token": "<token>",
+    "email": " <email>",
+    "password": "<password>",
+    "password_confirmation": "<password>"
+}
+```
+
+### Reset password current user logged
+
+```http
+POST /password/change
+
+{
+    "current_password": "<current_password>",
+    "password": "<newpassword>",
+    "password_confirmation": "<newpassword>"
+}
+```
+
+### Get user info
+
+```http
+GET /api/user
+```
+
 
 ### Nuxt.js
 
