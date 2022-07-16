@@ -122,4 +122,21 @@ class ResetPasswordTest extends TestCase
             'password_confirmation' => 'oldpassword',
         ])->assertStatus(422);
     }
+
+    public function test_password_change_fail_if_password_is_invalid_requerimets()
+    {
+        Event::fake();
+
+        $user = User::create([
+            'name' => 'Test',
+            'email' => 'sample@sample.es',
+            'password' => bcrypt('oldpassword'),
+        ]);
+
+        $this->actingAs($user)->postJson(route('password.change'), [
+            'current_password' => 'oldpassword',
+            'password' => '1234567',
+            'password_confirmation' => '1234567',
+        ])->assertStatus(422);
+    }
 }
