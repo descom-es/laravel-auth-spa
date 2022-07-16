@@ -16,7 +16,6 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.4",
-        "nunomaduro/collision": "^6.2",
         "nunomaduro/larastan": "^2.0",
         "orchestra/testbench": "^7.5",
         "phpstan/phpstan": "^1.2",
@@ -33,7 +32,7 @@
         }
     },
     "scripts": {
-        "test": "./vendor/bin/testbench package:test --parallel --no-coverage"
+        "test": "./vendor/bin/phpunit"
     },
     "config": {
         "sort-packages": true
