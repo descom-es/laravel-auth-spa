@@ -208,6 +208,8 @@ public function boot()
 }
 ```
 
+[Other rules](https://laravel.com/docs/validation#validating-passwords)
+
 ## More info
 
 - [Laravel Sanctum](https://laravel.com/docs/sanctum)
