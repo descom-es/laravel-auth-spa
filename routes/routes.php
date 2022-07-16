@@ -24,14 +24,10 @@ Route::post('/password/reset', ResetPasswordController::class)
     ->middleware(['web'])
     ->name('password.reset');
 
-Route::group([
-    'middleware' => config('auth_spa.http.profile_info.middleware', ['api', 'auth:sanctum'])
-], function () {
+Route::group(['middleware' => ['api', 'auth:sanctum']], function () {
     Route::put('/api/user/password', UpdatePasswordController::class)
         ->name('api.user.password.update');
 
-    Route::get(
-        config('auth_spa.http.profile_info.path',  '/api/user'),
-        config('auth_spa.http.profile_info.controller',  ProfileInfoController::class)
-    )->name('api.user.profile');
+    Route::get('/api/user', ProfileInfoController::class)
+    ->name('api.user.profile');
 });

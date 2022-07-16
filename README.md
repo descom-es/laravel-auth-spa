@@ -13,7 +13,13 @@ SPA or SSR, including login, password reset, and more.
   - [Laravel Sanctum](#laravel-sanctum)
   - [Package](#package)
 - [Usage](#usage)
+  - [Login](#login)
+  - [Logout](#logout)
+  - [Get reset password link](#get-reset-password-link)
+  - [Reset password with link](#reset-password-with-link)
+  - [Update password for current user logged](#update-password-for-current-user-logged)
 - [Customize](#customize)
+  - [Defining Default Password Rules](#defining-default-password-rules)
 - [More info](#more-info)
 
 ## Installation
@@ -129,7 +135,7 @@ POST /password/reset
 }
 ```
 
-### Reset password current user logged
+### Update password for current user logged
 
 ```http
 PUT /api/user/password
@@ -177,45 +183,6 @@ And configure file `nuxt.config.js`:
 ```
 
 ## Customize
-
-### Customize User Info
-
-You can define your own controller to get User Info, edit the file `config/auth-spa.php`
-
-```php
-
-    'http' => [
-        'profile_info' => [
-            'controller' => \Descom\AuthSpa\Http\Controllers\ProfileInfoController::class,
-
-            'middleware' => ['api', 'auth:sanctum'],
-
-            'path' => 'user',
-        ],
-    ],
-
-```
-
-And define your own controller:
-
-```php
-use Illuminate\Http\JsonResponse;
-use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
-
-class UserInfoController extends Controller
-{
-    public function __invoke(): JsonResponse
-    {
-        return response()->json(Auth::user()->load(['roles', 'clients']));
-    }
-}
-```
-
-
-
-
-
 
 ### Defining Default Password Rules
 
