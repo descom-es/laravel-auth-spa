@@ -8,23 +8,26 @@ use Descom\AuthSpa\Http\Controllers\Users\ProfileInfoController;
 use Descom\AuthSpa\Http\Controllers\Users\UpdatePasswordController;
 use Illuminate\Support\Facades\Route;
 
-Route::post('/login', LoginController::class)
-    ->middleware(['web'])
-    ->name('login');
+Route::group(['middleware' => ['web']], function () {
+    Route::post('/login', LoginController::class)
+        ->middleware(['guest'])
+        ->name('login');
 
-Route::post('/logout', LogoutController::class)
-    ->middleware(['web'])
-    ->name('logout');
+    Route::post('/password/forgot', ForgotPasswordController::class)
+        ->middleware(['guest'])
+        ->name('password.forgot');
 
-Route::post('/password/forgot', ForgotPasswordController::class)
-    ->middleware(['web'])
-    ->name('password.forgot');
+    Route::post('/password/reset', ResetPasswordController::class)
+        ->middleware(['guest'])
+        ->name('password.reset');
 
-Route::post('/password/reset', ResetPasswordController::class)
-    ->middleware(['web'])
-    ->name('password.reset');
+    Route::post('/logout', LogoutController::class)
+        ->middleware(['auth'])
+        ->name('logout');
+});
 
-Route::group(['middleware' => ['api', 'auth:sanctum']], function () {
+
+Route::group(['middleware' => ['api', 'auth']], function () {
     Route::put('/api/user/password', UpdatePasswordController::class)
         ->name('api.user.password.update');
 
