@@ -7,6 +7,7 @@ use Descom\AuthSpa\Http\Controllers\Passwords\ResetPasswordController;
 use Descom\AuthSpa\Http\Controllers\Users\ProfileInfoController;
 use Descom\AuthSpa\Http\Controllers\Users\UpdatePasswordController;
 use Illuminate\Support\Facades\Route;
+use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
 Route::group(['middleware' => ['web']], function () {
     Route::post('/login', LoginController::class)
@@ -27,7 +28,11 @@ Route::group(['middleware' => ['web']], function () {
 });
 
 
-Route::group(['middleware' => ['api', 'auth']], function () {
+Route::group(['middleware' => [
+    'api',
+    'auth',
+    EnsureFrontendRequestsAreStateful::class,
+]], function () {
     Route::put('/api/user/password', UpdatePasswordController::class)
         ->name('api.user.password.update');
 
