@@ -13,7 +13,15 @@ jobs:
 
     strategy:
       matrix:
-        php-versions: ['8.2', '8.3']
+        php: ['8.2', '8.3']
+        laravel: ['10.*', '11.*']
+        include:
+          - laravel: 10.*
+            testbench: 8.*
+          - laravel: 11.*
+            testbench: 9.*
+
+    name: P${{ matrix.php }} - L${{ matrix.laravel }}
 
     steps:
     - uses: actions/checkout@v2
@@ -39,15 +47,15 @@ jobs:
     - uses: actions/cache@v3
       with:
         path: ${{ steps.composer-cache.outputs.dir }}
-        key: ${{ runner.os }}-composer-${{ matrix.php-versions }}-${{ hashFiles('**/composer.lock') }}
+        key: ${{ runner.os }}-composer-${{ matrix.php }}-${{ matrix.laravel }}-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
-          ${{ runner.os }}-composer-${{ matrix.php-versions }}
+          ${{ runner.os }}-composer-${{ matrix.php }}-${{ matrix.laravel }}
 
     - name: Install dependencies
       if: steps.composer-cache.outputs.cache-hit != 'true'
       run: |
-        composer install
-        composer dump
+        composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+        composer update --prefer-stable --prefer-dist --no-interact
 
     - name: Run test phpunit
       run: vendor/bin/phpunit

@@ -19,7 +19,7 @@
         "nunomaduro/larastan": "^2.0",
         "orchestra/testbench": "^8.10|^9.0",
         "phpstan/phpstan": "^1.2",
-        "phpunit/phpunit": "^9.3"
+        "phpunit/phpunit": "^9.3|^10.5"
     },
     "autoload": {
         "psr-4": {
