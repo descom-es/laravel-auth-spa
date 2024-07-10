@@ -53,5 +53,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
         ]);
 
         $app['config']->set('auth.providers.users.model', User::class);
+
+        $app['config']->set('session.driver', 'array');
     }
 }
